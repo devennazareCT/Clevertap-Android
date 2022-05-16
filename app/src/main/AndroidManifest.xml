@@ -1,43 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.secondapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
+    <permission
+        android:name="com.example.secondapplication.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
 
-    <!-- IMPORTANT: To force use Google AD ID to uniquely identify  users, use the following meta tag. GDPR mandates that if you are using this tag, there is prominent disclousure to your end customer in their application. Read more about GDPR here - https://clevertap.com/blog/in-preparation-of-gdpr-compliance/ -->
+    <uses-permission android:name="yourpackage.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-       <application
+    <application
+        android:name=".myApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-           android:name="com.clevertap.android.sdk.Application"
-           android:theme="@style/Theme.AppCompat.Light">
-           <meta-data
-               android:name="CLEVERTAP_ACCOUNT_ID"
-               android:value="65R-654-5Z6Z"/>
-           <meta-data
-               android:name="CLEVERTAP_TOKEN"
-               android:value="456-256"/>
-           <meta-data
-               android:name="CLEVERTAP_REGION"
-               android:value="eu1"/>
-           <service
-               android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
-               android:exported="true">
-               <intent-filter>
-                   <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-               </intent-filter>
-           </service>
-           <service
-               android:name="com.example.secondapplication.MyFcmMessageListenerService"
-               android:exported="true">
-               <intent-filter>
-                   <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-               </intent-filter>
-           </service>
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity
+            android:name=".webviewscreen"
+            android:exported="false" />
+
+        <meta-data
+            android:name="CLEVERTAP_XIAOMI_APP_KEY"
+            android:value="5902017164226" />
+        <meta-data
+            android:name="CLEVERTAP_XIAOMI_APP_ID"
+            android:value="2882303761520171226" />
+
+        <activity
+            android:name=".about"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- below line is to set the action to our intent to view -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <!-- on below line we are adding a default category to our intent -->
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- on below line we are adding a category to make our app browsable -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--
+                    on below line we are specifying the host name and
+                    the scheme type from which we will be calling our app
+                -->
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/about"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <!-- below is the same filter as above just the scheme is changed to http -->
+            <!-- so we can open our app with the url starting with https and http as well -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/about"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <receiver
+            android:name="com.adjust.sdk.AdjustReferrerReceiver"
+            android:permission="android.permission.INSTALL_PACKAGES"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".profile"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- below line is to set the action to our intent to view -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <!-- on below line we are adding a default category to our intent -->
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- on below line we are adding a category to make our app browsable -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--
+                    on below line we are specifying the host name and
+                    the scheme type from which we will be calling our app
+                -->
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/profile"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <!-- below is the same filter as above just the scheme is changed to http -->
+            <!-- so we can open our app with the url starting with https and http as well -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="deven"
+                    android:pathPrefix="/profile"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".profile"
+            android:exported="true">
+            <intent-filter>
+
+                <!-- below line is to set the action to our intent to view -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <!-- on below line we are adding a default category to our intent -->
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- on below line we are adding a category to make our app browsable -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--
+                    on below line we are specifying the host name and
+                    the scheme type from which we will be calling our app
+                -->
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/profile"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <!-- below is the same filter as above just the scheme is changed to http -->
+            <!-- so we can open our app with the url starting with https and http as well -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="deven"
+                    android:pathPrefix="/profile"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="65R-654-5Z6Z" />
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="456-256" />
+        <meta-data
+            android:name="CLEVERTAP_REGION"
+            android:value="eu1" />
+        <meta-data
+            android:name="CLEVERTAP_BACKGROUND_SYNC"
+            android:value="1" />
 
         <activity
             android:name=".MainActivity"
@@ -47,7 +179,72 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+
+                <!-- below line is to set the action to our intent to view -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <!-- on below line we are adding a default category to our intent -->
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <!-- on below line we are adding a category to make our app browsable -->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--
+                    on below line we are specifying the host name and
+                    the scheme type from which we will be calling our app
+                -->
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/main"
+                    android:scheme="apps" />
+            </intent-filter>
+
+            <!-- below is the same filter as above just the scheme is changed to http -->
+            <!-- so we can open our app with the url starting with https and http as well -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.deven.com"
+                    android:pathPrefix="/main"
+                    android:scheme="app" />
+            </intent-filter>
         </activity>
+
+        <service
+            android:name="com.clevertap.android.sdk.pushnotification.CTNotificationIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.clevertap.PUSH_EVENT" />
+            </intent-filter>
+        </service> <!-- <service -->
+        <!-- android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <service
+            android:name=".MyFcmMessageListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver"
+            android:enabled="true"
+            android:exported="false"></receiver>
+        <receiver android:name=".MainActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="111" />
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Push Details"
+        android:text="Push Profile "
         tools:layout_editor_absoluteX="158dp"
         tools:layout_editor_absoluteY="480dp" />
 
@@ -32,6 +32,11 @@
 
         tools:layout_editor_absoluteX="173dp"
         tools:layout_editor_absoluteY="563dp" />
+    <Button
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Click me to another screen" />
     <Button
         android:layout_below="@id/nt1"
         android:layout_width="wrap_content"
