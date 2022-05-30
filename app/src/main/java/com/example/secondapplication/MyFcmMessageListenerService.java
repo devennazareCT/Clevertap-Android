@@ -54,6 +54,7 @@ public class MyFcmMessageListenerService extends FirebaseMessagingService  {
 
                     notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build());
                     Log.d("FBNOTIFY","This is from Frebase");
+                    //new CTFcmMessageHandler().processPushAmp(getApplicationContext(), message);
 
                 }
                 else {

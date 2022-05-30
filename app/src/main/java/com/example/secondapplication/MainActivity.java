@@ -31,6 +31,7 @@ import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler;
 import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.CleverTapInstanceConfig;
 import com.clevertap.android.sdk.Utils;
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener;
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit;
@@ -93,7 +94,24 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener ,
         clevertapDefaultInstance.pushFcmRegistrationId(fcmRegId.toString(),true);
         Log.d("mytoken", "mytoken: "+fcmRegId.toString());
 
-      //x     clevertapDefaultInstance.setCTPushNotificationListener(this);
+
+
+
+      //  CleverTapInstanceConfig clevertapAdditionalInstanceConfig =  CleverTapInstanceConfig.createInstance(getApplicationContext(), "65R-654-5Z6Z", "456-256");
+        // disables the user engagement features of the instance, default is false
+        CleverTapInstanceConfig config =  CleverTapInstanceConfig.createInstance(this,"65R-654-5Z6Z","456-256");
+        CleverTapAPI cleverAPI = CleverTapAPI.instanceWithConfig(this,config);
+        cleverAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG); // default is CleverTapAPI.LogLevel.INFO
+
+        cleverAPI.pushEvent("multiinstance");
+        clevertapDefaultInstance.pushEvent("multiinstance");
+
+
+
+
+
+
+        //x     clevertapDefaultInstance.setCTPushNotificationListener(this);
    //     MiPushClient.registerToken(this,"2882303761520171226","5902017164226");
         MiPushClient.registerPush(this, "2882303761520171226", "5902017164226");
             String xiaomiToken = MiPushClient.getRegId(this);
@@ -108,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener ,
 
         AppsFlyerLib.getInstance().init("TFXzofCdhmGvhCcWReFiNd", null, this);
         AppsFlyerLib.getInstance().setDebugLog(true);
+      //  val measureTimeMillis = measureTimeMillis { ActivityLifecycleCallback.register(this) }
 
         AppsFlyerLib.getInstance().start(this);
         AppsFlyerLib.getInstance().start(getApplicationContext(), "TFXzofCdhmGvhCcWReFiNd\n", new AppsFlyerRequestListener() {
@@ -132,6 +151,32 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener ,
             //Initialize the inbox and wait for callbacks on overridden methods
          //   clevertapDefaultInstance.initializeInbox();
         }
+        HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
+//
+
+        profileUpdate.put("Name", "abe");    // String
+        profileUpdate.put("Identity", 7891233);      // String or number
+        profileUpdate.put("Email", "abz@clevertap.com"); // Email address of the user
+        profileUpdate.put("Phone", "8779636312");   // Phone (with the country code, starting with +)
+        profileUpdate.put("Gender", "M");
+        profileUpdate.put("Language", "Marathi");
+        // Can be either M or F
+        profileUpdate.put("DOB", new Date());         // Date of Birth. Set the Date object to the appropriate value first
+// optional fields. controls whether the user will be sent email, push etc.
+        profileUpdate.put("MSG-email", true);        // Disable email notifications
+        profileUpdate.put("MSG-push", true);          // Enable push notifications
+        profileUpdate.put("MSG-sms", false);          // Disable SMS notifications
+        profileUpdate.put("MSG-whatsapp", true);      // Enable WhatsApp notifications
+        profileUpdate.put("Photo", "https://ca.slac12");
+        ArrayList<String> stuff = new ArrayList<String>();
+        stuff.add("bag");
+        stuff.add("shoes");
+        profileUpdate.put("MyStuff", stuff);                        //ArrayList of Strings
+        String[] otherStuff = {"Jeans","Perfume"};
+        profileUpdate.put("MyStuff", otherStuff);                   //String Array
+        //   clevertapDefaultInstance.pushEvent("Product viewed");
+
+        clevertapDefaultInstance.onUserLogin(profileUpdate);
         CleverTapAPI.getDefaultInstance(getApplicationContext()).getCleverTapID(new OnInitCleverTapIDListener() {
             @Override
             public void onInitCleverTapID(final String cleverTapID) {
@@ -186,17 +231,11 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener ,
             {
 
                 HashMap<String, Object> profileUpdate = new HashMap<String, Object>();
-//                profileUpdate.put("Name", "Sachin");    // String
-//                profileUpdate.put("Identity", 78010);      // String or number
-//                profileUpdate.put("Email", "sachin@clevertap.com"); // Email address of the user
-//                profileUpdate.put("Phone", "55666171");   // Phone (with the country code, starting with +)
-//                profileUpdate.put("Gender", "M");
-//                profileUpdate.put("Language", "Hindi");
+//
 
-
-                profileUpdate.put("Name", "Prerna");    // String
-                profileUpdate.put("Identity", 4161);      // String or number
-                profileUpdate.put("Email", "prerna@clevertap.com"); // Email address of the user
+                profileUpdate.put("Name", "benda");    // String
+                profileUpdate.put("Identity", 690109212);      // String or number
+                profileUpdate.put("Email", "shubh@clevertap.com"); // Email address of the user
                 profileUpdate.put("Phone", "8779636312");   // Phone (with the country code, starting with +)
                 profileUpdate.put("Gender", "M");
                 profileUpdate.put("Language", "Marathi");
@@ -282,10 +321,13 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener ,
                 //  clevertapDefaultInstance.pushEvent("NativeDisplayDeven");
                 Toast.makeText(getApplicationContext(),"Trail Button CLicked",Toast.LENGTH_SHORT).show();
 
+
+
 //               onDisplayUnitsLoaded();
             }
         });
-
+        cleverAPI.pushEvent("multiinstance1");
+        clevertapDefaultInstance.pushEvent("multiinstance1");
     }
 
     @Override
